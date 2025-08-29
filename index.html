@@ -3,16 +3,76 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>My Static Site</title>
+  <title>Visual Novel Demo</title>
+  <link rel="preload" as="image" href="assets/images/bg/bg_home.png">
+  <link rel="preload" as="image" href="assets/images/bg/bg_classroom.png">
+  <link rel="preload" as="image" href="assets/images/char/char_a.png">
+  <link rel="preload" as="image" href="assets/images/char/char_b.png">
   <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
-  <main>
-    <h1>Welcome to Your Static Site</h1>
-  </main>
-  <footer>
-    <p>&copy; 2025 Your Name</p>
-  </footer>
+  <div id="app">
+    <!-- Title Screen -->
+    <div id="title-screen" class="screen active">
+      <div class="title-content">
+        <h1 class="game-title">Cosine VN Engine</h1>
+        <div class="menu">
+          <button id="continue-btn" class="primary" disabled>Continue</button>
+          <button id="newgame-btn" class="secondary">Start New Game</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="game-screen" class="screen">
+      <button id="mute-btn" class="mute-btn" aria-label="Toggle Mute">🔇</button>
+      <button id="devconsole-toggle" class="dev-toggle" aria-label="Developer Console">Dev Console</button>
+      <div id="scene-container">
+        <img id="bg-image" alt="Background"/>
+        <img id="portrait-image" alt="Portrait" />
+        <audio id="bgm" loop></audio>
+        <div id="wipe-overlay"></div>
+      </div>
+
+      <div id="dialogue-layer" class="click-advance">
+        <div id="name-tag"></div>
+        <div id="dialogue-box">
+          <div id="dialogue-speaker"></div>
+          <div id="dialogue-text"></div>
+          <div id="advance-indicator">▶</div>
+          <div id="continue-hint">Click or press Space/Enter to continue</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Choices Overlay -->
+    <div id="choices-overlay" class="overlay hidden">
+      <div class="choices-panel">
+        <h3>Make a choice</h3>
+        <div id="choices-container"></div>
+        <button id="choices-cancel" class="link small hidden">Cancel</button>
+      </div>
+    </div>
+
+    <!-- Dev Console -->
+    <div id="dev-console" class="overlay hidden">
+      <div class="dev-panel">
+        <div class="dev-header">
+          <h3>Developer Console</h3>
+          <button id="devconsole-close" class="link">Close</button>
+        </div>
+        <div class="dev-body">
+          <p>This is where developers can add tools to skip, inspect state, or jump to scenes.</p>
+          <div class="dev-actions">
+            <button data-jump="scene1" class="small">Jump: Scene 1</button>
+            <button data-jump="scene2" class="small">Jump: Scene 2</button>
+            <button id="dev-skip-to-end" class="small">Skip to End</button>
+          </div>
+          <pre id="dev-state"></pre>
+        </div>
+      </div>
+    </div>
+  </div>
   <script src="scripts/script.js"></script>
 </body>
 </html>
