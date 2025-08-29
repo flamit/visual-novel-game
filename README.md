@@ -4,6 +4,7 @@ This is a visual novel template with a basic game engine.
 
 Deploy the html file to see the game!
 
+```
 .
 ├── assets/
 │   ├── images/
@@ -19,3 +20,4 @@ Deploy the html file to see the game!
 │   └── style.css
 ├── index.html <- Deploy me!
 └── README.md
+```
