@@ -1,6 +1,6 @@
 # visual-novel-template
 
-This is a visual novel template with a basic game engine.
+This is a visual novel template with a basic game engine. Create your own story with branching pathlines, or just tell a simple story. Add backgrounds, character profiles and write engrossing dialogue. Let your imagination run wild!
 
 Deploy the html file to see the game!
 
