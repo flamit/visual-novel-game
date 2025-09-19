@@ -1,19 +1,10 @@
-# Project kickoff: what I need from you
+# visual-novel-template
 
-- What kind of story do you want to tell? Slice-of-life, mystery, sci‑fi, romance, horror?
-- Tone and target audience?
-- Linear story with vibes, or branching with meaningful consequences?
-- Any must‑have features?
-  - Character expressions
-  - Timed choices
-  - Save slots
-  - Sound design
-  - Mobile‑first
-- Do you already have assets (backgrounds, portraits, music), or should we source/placehold?
+A minimal, client-side visual novel template you can clone and run anywhere. Write branching stories, add backgrounds and character portraits, and ship a playable prototype fast.
 
 ---
 
-## Current engine capabilities (from your code)
+## Features
 
 - Title and game flow
   - Title screen with Continue (auto-enabled if a save exists) and Start New Game
@@ -36,44 +27,69 @@
 - Dev console (super helpful!)
   - Jump to scenes, skip to end, inspect current engine state
 - Structure
-  - Fully client-side, easy to deploy as static site
+  - Fully client-side, easy to deploy as a static site
 
 ---
 
-## High-impact directions we can take next
+## Project structure
 
-### Content and scripting
-- External content: Move Scenes from code to JSON/YAML (or integrate Ink or Yarn Spinner) so writers can iterate without touching JS.
-- Content tooling: Add a simple in-browser editor to preview scenes and validate flags/links.
-
-### Narrative and UX polish
-- Character system: Multiple expressions, positions (left/center/right), transitions, and lip-flap/eye-blink animations.
-- UI upgrades: Theming, custom textbox skins, subtle animations, micro-interactions.
-- Backlog/history: Let players open a log of previous lines.
-- Auto-forward and text speed controls; “skip seen text” option.
-
-### Choices and systems
-- Choice depth: Timed choices, conditional visibility, tooltips, and consequence markers.
-- Achievements/flags: Route tracking, endings gallery (CGs/unlockables).
-- Variables and scripting: A light DSL for conditions/math/comparisons in content files.
-
-### Audio/visual fidelity
-- SFX hooks for text/choices/scene transitions.
-- BGM crossfades and per-character voice samples/voiceover mapping.
-- Asset preloading and smarter loading strategies to avoid hitches.
-
-### Save and platform features
-- Multiple save slots, quick save/load, export/import saves.
-- Cloud save support (if hosted with backend later).
-
-### Accessibility and localization
-- Localization framework (strings + assets per locale, RTL support).
-- Accessibility: High-contrast theme, dyslexic-friendly font option, screen reader labels, captioning.
-
-### Performance and quality
-- Mobile-first tuning, responsive layout for phones/tablets.
-- Testing scaffolds for script validation (dangling scene refs, unreachable nodes).
+```
+.
+├── assets/
+│   ├── images/
+│   │   ├── bg/        # Backgrounds
+│   │   └── char/      # Character portraits
+│   └── music/         # Background music
+├── scripts/
+│   └── script.js      # VN engine + demo content (Scenes)
+├── styles/
+│   └── style.css
+├── index.html         # Open this to play
+└── README.md
+```
 
 ---
 
-If you share the kind of story and experience you want, I’ll propose a concrete roadmap (content structure, asset plan, and the exact features to build first) and then implement it end-to-end.
+## Getting started
+
+- Quick start (no tooling)
+  - Download or clone this repo
+  - Open index.html in a modern browser
+
+- Local server (recommended for assets/debug)
+  - Python: python3 -m http.server 8000
+  - Node: npx http-server . -p 8000
+  - VS Code: use the “Live Server” extension
+
+Then visit http://localhost:8000 (or the port you chose).
+
+---
+
+## Add your story
+
+- Edit scripts/script.js and modify the Scenes object:
+  - Define scene ids, bg, portrait, music, and lines
+  - Add choices with:
+    - type: "choice"
+    - prompt: "..."
+    - options: [{ text, set: { flag: true }, next: "sceneId" }]
+  - Lines can be functions to compute text from state:
+    - text: (state) => state.flags.tookPark ? "..." : "..."
+
+- Place assets
+  - Backgrounds: assets/images/bg/
+  - Portraits: assets/images/char/
+  - Music: assets/music/
+
+- Saving and settings
+  - Game saves are stored under localStorage (key vn_save_v1)
+  - Mute state is persisted (key vn_settings_v1)
+
+- Dev console
+  - Toggle via the button in the UI to jump scenes, skip to end, and inspect state
+
+---
+
+## Roadmap and project planning
+
+For feature ideas and a planning starter, see INTRO.md. It contains a “Project kickoff” checklist and a roadmap of high-impact improvements.
