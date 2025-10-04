@@ -1,0 +1,89 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  favorites Favorite[]
+  leads     Lead[]
+}
+
+model Listing {
+  id          String         @id @default(cuid())
+  title       String
+  description String
+  type        ListingType
+  price       Int
+  beds        Int
+  baths       Int
+  sqft        Int?
+  city        String
+  address     String?
+  lat         Float?
+  lng         Float?
+  status      ListingStatus  @default(ACTIVE)
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
+  images  ListingImage[]
+  leads   Lead[]
+  favorites Favorite[]
+}
+
+model ListingImage {
+  id        String   @id @default(cuid())
+  url       String
+  listing   Listing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  listingId String
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model Lead {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  message   String?
+  listing   Listing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  listingId String
+  user      User?    @relation(fields: [userId], references: [id])
+  userId    String?
+  createdAt DateTime @default(now())
+}
+
+model Favorite {
+  id        String   @id @default(cuid())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  listing   Listing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  listingId String
+  createdAt DateTime @default(now())
+
+  @@unique([userId, listingId])
+}
+
+enum ListingType {
+  HOUSE
+  CONDO
+  APARTMENT
+  TOWNHOUSE
+  LAND
+}
+
+enum ListingStatus {
+  ACTIVE
+  PENDING
+  SOLD
+}
