@@ -37,6 +37,9 @@ export default function HomeScreen({ navigation, favorites, onToggleFavorite }) 
           <Pressable style={styles.button} onPress={() => navigation.navigate('Favorites')}>
             <Text style={styles.buttonText}>Saved</Text>
           </Pressable>
+          <Pressable style={styles.button} onPress={() => navigation.navigate('MapSearchDubai')}>
+            <Text style={styles.buttonText}>Dubai Map</Text>
+          </Pressable>
           <Pressable style={[styles.button, styles.secondary]} onPress={() => { setQuery(''); setMaxPrice(''); }}>
             <Text style={[styles.buttonText, styles.secondaryText]}>Clear</Text>
           </Pressable>

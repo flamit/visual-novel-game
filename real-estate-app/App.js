@@ -5,6 +5,7 @@ import { StatusBar } from 'react-native';
 import HomeScreen from './src/screens/HomeScreen';
 import PropertyDetailScreen from './src/screens/PropertyDetailScreen';
 import FavoritesScreen from './src/screens/FavoritesScreen';
+import MapSearchScreen from './src/screens/MapSearchScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -55,6 +56,18 @@ export default function App() {
         >
           {(props) => (
             <FavoritesScreen
+              {...props}
+              favorites={favSet}
+              onToggleFavorite={toggleFavorite}
+            />
+          )}
+        </Stack.Screen>
+        <Stack.Screen
+          name="MapSearchDubai"
+          options={{ title: 'Dubai Map Search' }}
+        >
+          {(props) => (
+            <MapSearchScreen
               {...props}
               favorites={favSet}
               onToggleFavorite={toggleFavorite}
